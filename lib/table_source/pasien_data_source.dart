@@ -1,4 +1,5 @@
 import 'package:axon_vision/models/data_pasien_model.dart';
+import 'package:axon_vision/pages/global_widgets/custom/custom_ripple_button.dart';
 import 'package:axon_vision/pages/global_widgets/text_fonts/poppins_text_view.dart';
 import 'package:axon_vision/utils/app_colors.dart';
 import 'package:axon_vision/utils/size_config.dart';
@@ -46,7 +47,10 @@ class PasienDataSource extends DataGridSource {
               ? Alignment.center
               : Alignment.centerLeft,
           child: dataGridCell.columnName == 'action'
-              ? Icon(Icons.file_upload, color: AppColors.greyDisabled)
+              ? CustomRippleButton(
+                  onTap: () {},
+                  child: Icon(Icons.file_upload, color: AppColors.greyDisabled),
+                )
               : PoppinsTextView(
                   value: dataGridCell.value.toString(),
                   size: SizeConfig.safeBlockHorizontal * 1.2,

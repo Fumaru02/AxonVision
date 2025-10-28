@@ -14,79 +14,105 @@ class DashboardTabelDaftarPasien extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder<DashboardController>(
       init: DashboardController(),
-      builder: (DashboardController dashboardController) => SfDataGrid(
-        gridLinesVisibility: GridLinesVisibility.both,
-        headerGridLinesVisibility: GridLinesVisibility.both,
-        source: dashboardController.pasienDataSource,
-        columns: <GridColumn>[
-          GridColumn(
-            visible: isHideID == true ? false : true,
-            width: SizeConfig.horizontal(isHideID == true ? 17.4 : 10),
-            columnName: 'id_patient',
-            label: Container(
-              color: AppColors.greyDisabled,
-              alignment: Alignment.center,
-              child: PoppinsTextView(
-                size: SizeConfig.safeBlockHorizontal * 1.2,
-                value: 'ID Pasien',
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
+      builder: (DashboardController dashboardController) => Column(
+        children: [
+          SfDataGrid(
+            gridLinesVisibility: GridLinesVisibility.both,
+            headerGridLinesVisibility: GridLinesVisibility.both,
+            source: dashboardController.pasienDataSource,
+            verticalScrollPhysics: isHideID == true
+                ? NeverScrollableScrollPhysics()
+                : ScrollPhysics(),
+            columns: <GridColumn>[
+              GridColumn(
+                visible: isHideID == true ? false : true,
+                width: SizeConfig.horizontal(isHideID == true ? 17.4 : 10),
 
-          GridColumn(
-            width: SizeConfig.horizontal(17.4),
-            columnName: 'name',
-            label: Container(
-              color: AppColors.greyDisabled,
-              alignment: Alignment.center,
-              child: PoppinsTextView(
-                size: SizeConfig.safeBlockHorizontal * 1.2,
-                value: 'Nama Pasien',
-                fontWeight: FontWeight.bold,
-                overFlow: TextOverflow.ellipsis,
+                columnName: 'id_patient',
+                label: Container(
+                  color: AppColors.greyDisabled,
+                  alignment: Alignment.center,
+                  child: PoppinsTextView(
+                    size: SizeConfig.safeBlockHorizontal * 1.2,
+                    value: 'ID Pasien',
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ),
-            ),
-          ),
-          GridColumn(
-            columnName: 'tanggal_lahir',
-            width: SizeConfig.horizontal(17.4),
-            label: Container(
-              color: AppColors.greyDisabled,
-              alignment: Alignment.center,
-              child: PoppinsTextView(
-                size: SizeConfig.safeBlockHorizontal * 1.2,
-                value: 'Tanggal Lahir',
-                fontWeight: FontWeight.bold,
+
+              GridColumn(
+                width: SizeConfig.horizontal(17.4),
+                columnName: 'name',
+                label: Container(
+                  color: AppColors.greyDisabled,
+                  alignment: Alignment.center,
+                  child: PoppinsTextView(
+                    size: SizeConfig.safeBlockHorizontal * 1.2,
+                    value: 'Nama Pasien',
+                    fontWeight: FontWeight.bold,
+                    overFlow: TextOverflow.ellipsis,
+                  ),
+                ),
               ),
-            ),
-          ),
-          GridColumn(
-            columnName: 'status',
-            width: SizeConfig.horizontal(isHideID == true ? 17.4 : 10),
-            label: Container(
-              color: AppColors.greyDisabled,
-              alignment: Alignment.center,
-              child: PoppinsTextView(
-                size: SizeConfig.safeBlockHorizontal * 1.2,
-                value: 'Status',
-                fontWeight: FontWeight.bold,
+              GridColumn(
+                columnName: 'tanggal_lahir',
+                width: SizeConfig.horizontal(17.4),
+                label: Container(
+                  color: AppColors.greyDisabled,
+                  alignment: Alignment.center,
+                  child: PoppinsTextView(
+                    size: SizeConfig.safeBlockHorizontal * 1.2,
+                    value: 'Tanggal Lahir',
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ),
-            ),
-          ),
-          GridColumn(
-            width: SizeConfig.horizontal(isHideID == true ? 17.4 : 15),
-            columnName: 'action',
-            label: Container(
-              color: AppColors.greyDisabled,
-              alignment: Alignment.center,
-              child: PoppinsTextView(
-                size: SizeConfig.safeBlockHorizontal * 1.2,
-                value: 'Aksi',
-                fontWeight: FontWeight.bold,
+              GridColumn(
+                columnName: 'status',
+                width: SizeConfig.horizontal(isHideID == true ? 17.4 : 10),
+                label: Container(
+                  color: AppColors.greyDisabled,
+                  alignment: Alignment.center,
+                  child: PoppinsTextView(
+                    size: SizeConfig.safeBlockHorizontal * 1.2,
+                    value: 'Status',
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ),
-            ),
+              GridColumn(
+                width: SizeConfig.horizontal(isHideID == true ? 17.4 : 15),
+                columnName: 'action',
+                label: Container(
+                  color: AppColors.greyDisabled,
+                  alignment: Alignment.center,
+                  child: PoppinsTextView(
+                    size: SizeConfig.safeBlockHorizontal * 1.2,
+                    value: 'Aksi',
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ],
           ),
+          isHideID == true
+              ? SizedBox.shrink()
+              : Container(
+                  color: AppColors.greyCard,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      SfDataPager(
+                        visibleItemsCount: 5,
+                        nextPageItemVisible: false,
+                        previousPageItemVisible: false,
+                        delegate: dashboardController.pasienDataSource,
+                        pageCount: dashboardController.getPasienPageCount(),
+                      ),
+                    ],
+                  ),
+                ),
         ],
       ),
     );

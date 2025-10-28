@@ -42,7 +42,10 @@ class Home extends StatelessWidget {
           SizedBox(
             width: SizeConfig.blockSizeHorizontal * 70,
             height: SizeConfig.safeBlockVertical * 33,
-            child: DashboardTabelDaftarPasien(),
+            child: SingleChildScrollView(
+              physics: NeverScrollableScrollPhysics(),
+              child: DashboardTabelDaftarPasien(isHideID: true),
+            ),
           ),
           SpaceSizer(vertical: 1),
           CustomFlatButton(

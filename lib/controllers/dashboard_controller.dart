@@ -11,6 +11,8 @@ class DashboardController extends GetxController {
   late PasienDataSource pasienDataSource;
   late AnalisisDataSource analisisDataSource;
 
+  final int pageSize = 6;
+
   @override
   void onInit() {
     super.onInit();
@@ -18,6 +20,14 @@ class DashboardController extends GetxController {
     analisisDataSource = AnalisisDataSource(analisisData);
     pasienData = getPasienData();
     pasienDataSource = PasienDataSource(pasienData);
+  }
+
+  double getPasienPageCount() {
+    return (pasienData.length / pageSize).ceilToDouble();
+  }
+
+  double getAnalisisPageCount() {
+    return (analisisData.length / pageSize).ceilToDouble();
   }
 
   //Dummy Data
@@ -31,14 +41,84 @@ class DashboardController extends GetxController {
         action: 'icon',
       ),
       DataPasienModel(
-        idPatient: 'P001',
+        idPatient: 'P002',
         namePatient: 'Abdul',
         tanggalLahir: 'DD/MM/YYYY',
         status: 'Aktif',
         action: 'icon',
       ),
       DataPasienModel(
-        idPatient: 'P001',
+        idPatient: 'P003',
+        namePatient: 'Abdul',
+        tanggalLahir: 'DD/MM/YYYY',
+        status: 'Aktif',
+        action: 'icon',
+      ),
+      DataPasienModel(
+        idPatient: 'P004',
+        namePatient: 'Abdul',
+        tanggalLahir: 'DD/MM/YYYY',
+        status: 'Aktif',
+        action: 'icon',
+      ),
+      DataPasienModel(
+        idPatient: 'P005',
+        namePatient: 'Abdul',
+        tanggalLahir: 'DD/MM/YYYY',
+        status: 'Aktif',
+        action: 'icon',
+      ),
+      DataPasienModel(
+        idPatient: 'P006',
+        namePatient: 'Abdul',
+        tanggalLahir: 'DD/MM/YYYY',
+        status: 'Aktif',
+        action: 'icon',
+      ),
+      DataPasienModel(
+        idPatient: 'P006',
+        namePatient: 'Abdul',
+        tanggalLahir: 'DD/MM/YYYY',
+        status: 'Aktif',
+        action: 'icon',
+      ),
+      DataPasienModel(
+        idPatient: 'P006',
+        namePatient: 'Abdul',
+        tanggalLahir: 'DD/MM/YYYY',
+        status: 'Aktif',
+        action: 'icon',
+      ),
+      DataPasienModel(
+        idPatient: 'P006',
+        namePatient: 'Abdul',
+        tanggalLahir: 'DD/MM/YYYY',
+        status: 'Aktif',
+        action: 'icon',
+      ),
+      DataPasienModel(
+        idPatient: 'P006',
+        namePatient: 'Abdul',
+        tanggalLahir: 'DD/MM/YYYY',
+        status: 'Aktif',
+        action: 'icon',
+      ),
+      DataPasienModel(
+        idPatient: 'P006',
+        namePatient: 'Abdul',
+        tanggalLahir: 'DD/MM/YYYY',
+        status: 'Aktif',
+        action: 'icon',
+      ),
+      DataPasienModel(
+        idPatient: 'P006',
+        namePatient: 'Abdul',
+        tanggalLahir: 'DD/MM/YYYY',
+        status: 'Aktif',
+        action: 'icon',
+      ),
+      DataPasienModel(
+        idPatient: 'P006',
         namePatient: 'Abdul',
         tanggalLahir: 'DD/MM/YYYY',
         status: 'Aktif',
