@@ -10,6 +10,8 @@ class CustomTextField extends StatelessWidget {
     required this.title,
     this.height,
     this.titleFontWeight,
+    this.hintTextFontweight,
+    this.hintTextSize,
     this.width,
     this.textSize,
     this.borderRadius,
@@ -31,6 +33,7 @@ class CustomTextField extends StatelessWidget {
     this.textAlignVertical,
     this.onFieldSubmitted,
     this.minLines,
+    this.fillColor,
     this.focus,
     this.style,
     this.keyboardType,
@@ -38,14 +41,17 @@ class CustomTextField extends StatelessWidget {
   final String title;
   final double? height;
   final FontWeight? titleFontWeight;
+  final FontWeight? hintTextFontweight;
   final double? width;
   final double? textSize;
+  final double? hintTextSize;
   final double? borderRadius;
   final String? labelText;
   final String? hintText;
   final Color? textColor;
   final Color? hintTextColor;
   final Color? borderColor;
+  final Color? fillColor;
   final Color? borderSideColor;
   final bool? isPasswordField;
   final Widget? suffixIcon;
@@ -96,8 +102,8 @@ class CustomTextField extends StatelessWidget {
                 ),
               ),
               prefixIcon: prefixIcon,
-              contentPadding: EdgeInsets.only(left: 20),
-              fillColor: AppColors.greyDisabled,
+              contentPadding: EdgeInsets.only(left: 10),
+              fillColor: fillColor ?? AppColors.greyDisabled,
               filled: true,
               border: OutlineInputBorder(
                 borderSide: BorderSide(color: AppColors.bgColor),
@@ -107,7 +113,11 @@ class CustomTextField extends StatelessWidget {
               ),
               labelText: hintText,
               floatingLabelBehavior: FloatingLabelBehavior.never,
-              labelStyle: InterStyle().labelStyle(),
+              labelStyle: InterStyle(
+                textHintColor: hintTextColor,
+                hintTextSize: hintTextSize,
+                fontWeightHintText: hintTextFontweight,
+              ).labelStyle(),
             ),
           ),
         ),

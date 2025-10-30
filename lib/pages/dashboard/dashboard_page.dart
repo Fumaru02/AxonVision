@@ -1,8 +1,12 @@
+import 'dart:developer';
+
 import 'package:axon_vision/controllers/dashboard_controller.dart';
 import 'package:axon_vision/pages/dashboard/dashboard_widget/dashboard_tabel_data_pasien.dart';
+import 'package:axon_vision/pages/dashboard/dashboard_widget/hasil_analisis_pasien.dart';
 import 'package:axon_vision/pages/dashboard/dashboard_widget/home_dashboard.dart';
 import 'package:axon_vision/pages/dashboard/dashboard_widget/left_text_menu.dart';
 import 'package:axon_vision/pages/dashboard/dashboard_widget/data_pasien_menu_detail.dart';
+import 'package:axon_vision/pages/dashboard/dashboard_widget/pengaturan_profil.dart';
 import 'package:axon_vision/pages/dashboard/dashboard_widget/upload_scan_mri.dart';
 import 'package:axon_vision/pages/global_widgets/custom/custom_flat_button.dart';
 import 'package:axon_vision/pages/global_widgets/custom/custom_text_field.dart';
@@ -63,6 +67,9 @@ class DashboardPage extends StatelessWidget {
                   ],
                 ),
                 SingleChildScrollView(
+                  physics: dashboardController.activeMenuIndex == 4
+                      ? NeverScrollableScrollPhysics()
+                      : BouncingScrollPhysics(),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -72,8 +79,10 @@ class DashboardPage extends StatelessWidget {
                           PoppinsTextView(
                             value: dashboardController.activeMenuIndex == 0
                                 ? 'Dashboard'
+                                : dashboardController.activeMenuIndex == 5
+                                ? 'Pengaturan Profil'
                                 : 'Detail Pasien',
-                            size: SizeConfig.safeBlockHorizontal * 2,
+                            size: SizeConfig.safeBlockHorizontal * 1.8,
                             fontWeight: FontWeight.bold,
                           ),
                           SpaceSizer(
@@ -118,7 +127,7 @@ class DashboardPage extends StatelessWidget {
   Widget _buildActiveMenu(DashboardController dashboardController) {
     switch (dashboardController.activeMenuIndex) {
       case 0:
-        return Home();
+        return Home(dashboardController: dashboardController);
       case 1:
         return DaftarPasienMenu();
       case 2:
@@ -137,8 +146,19 @@ class DashboardPage extends StatelessWidget {
             dashboardController.backToPasienList();
           },
         );
+      case 4:
+        return HasilAnalisisPasien(
+          dashboardController: dashboardController,
+          pasienData: dashboardController.selectedPasien!,
+          onBack: () {
+            dashboardController.backToPasienList();
+          },
+        );
+      case 5:
+        return PengaturanProfil();
+
       default:
-        return Home();
+        return Home(dashboardController: dashboardController);
     }
   }
 }

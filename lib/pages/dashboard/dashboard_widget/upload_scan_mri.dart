@@ -89,7 +89,7 @@ class UploadScanMri extends StatelessWidget {
         SpaceSizer(vertical: 6),
         Row(
           children: [
-            SpaceSizer(horizontal: 20),
+            SpaceSizer(horizontal: 19),
             CustomFlatButton(
               text: 'Batal',
               onTap: () {},
@@ -104,7 +104,9 @@ class UploadScanMri extends StatelessWidget {
             SpaceSizer(horizontal: 1),
             CustomFlatButton(
               text: 'Upload dan Mulai Analisis',
-              onTap: () {},
+              onTap: () {
+                dashboardController.changeMenu(4);
+              },
               radius: 1,
               width: SizeConfig.blockSizeHorizontal * 20,
               height: SizeConfig.blockSizeHorizontal * 3,

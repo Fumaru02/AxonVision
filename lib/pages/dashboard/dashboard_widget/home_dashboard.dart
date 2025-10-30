@@ -1,5 +1,4 @@
-import 'dart:ui';
-
+import 'package:axon_vision/controllers/dashboard_controller.dart';
 import 'package:axon_vision/pages/dashboard/dashboard_widget/dashboard_tabel_analisis.dart';
 import 'package:axon_vision/pages/dashboard/dashboard_widget/dashboard_tabel_data_pasien.dart';
 import 'package:axon_vision/pages/global_widgets/custom/custom_flat_button.dart';
@@ -10,7 +9,9 @@ import 'package:axon_vision/utils/space_sizer.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatelessWidget {
-  const Home({super.key});
+  const Home({super.key, required this.dashboardController});
+
+  final DashboardController dashboardController;
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +52,9 @@ class Home extends StatelessWidget {
           CustomFlatButton(
             radius: 0.7,
             text: 'Lihat Semua Pasien',
-            onTap: () {},
+            onTap: () {
+              dashboardController.changeMenu(1);
+            },
             width: SizeConfig.safeBlockHorizontal * 12,
             height: SizeConfig.safeBlockVertical * 4,
             backgroundColor: AppColors.blueDark,

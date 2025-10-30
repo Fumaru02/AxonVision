@@ -51,12 +51,16 @@ class InterTextView extends StatelessWidget {
 }
 
 class InterStyle {
+  final Color? textHintColor;
+  final double? hintTextSize;
+  final FontWeight? fontWeightHintText;
+  InterStyle({this.hintTextSize, this.textHintColor, this.fontWeightHintText});
   TextStyle labelStyle() {
     return GoogleFonts.poppins(
-      color: Colors.grey,
-      fontSize: SizeConfig.safeBlockHorizontal * 1.1,
+      color: textHintColor ?? Colors.grey,
+      fontSize: hintTextSize ?? SizeConfig.safeBlockHorizontal * 1.1,
       fontStyle: FontStyle.normal,
-      fontWeight: FontWeight.bold,
+      fontWeight: fontWeightHintText ?? FontWeight.bold,
     );
   }
 

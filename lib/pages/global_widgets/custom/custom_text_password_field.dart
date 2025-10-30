@@ -24,6 +24,7 @@ class CustomTextPasswordField extends StatelessWidget {
     this.isPasswordField = false,
     this.suffixIcon,
     this.onChanged,
+    this.fillColor,
     this.autofillHint,
     this.textInputAction,
     this.contentPadding,
@@ -35,10 +36,12 @@ class CustomTextPasswordField extends StatelessWidget {
     this.minLines,
     this.focus,
     this.style,
+    this.iconSize,
     this.keyboardType,
   });
   final String title;
   final double? height;
+  final double? iconSize;
   final FontWeight? titleFontWeight;
   final double? width;
   final double? textSize;
@@ -48,6 +51,7 @@ class CustomTextPasswordField extends StatelessWidget {
   final Color? textColor;
   final Color? hintTextColor;
   final Color? borderColor;
+  final Color? fillColor;
   final Color? borderSideColor;
   final bool? isPasswordField;
   final Widget? suffixIcon;
@@ -95,12 +99,10 @@ class CustomTextPasswordField extends StatelessWidget {
               textInputAction: textInputAction,
 
               // ignore: avoid_bool_literals_in_conditional_expressions, use_if_null_to_convert_nulls_to_bools
-              obscureText: isPasswordField == true
-                  ? loginController.isObscurePassword.value =
-                        loginController.isObscurePassword.value
-                  : false,
+              obscureText: loginController.isObscurePassword.value =
+                  loginController.isObscurePassword.value,
               decoration: InputDecoration(
-                contentPadding: EdgeInsets.only(left: 20),
+                contentPadding: EdgeInsets.only(left: 10),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.all(
                     Radius.circular(SizeConfig.horizontal(borderRadius ?? 0.5)),
@@ -108,6 +110,7 @@ class CustomTextPasswordField extends StatelessWidget {
                 ),
                 prefixIcon: prefixIcon,
                 suffixIcon: IconButton(
+                  iconSize: iconSize,
                   onPressed: () {
                     loginController.isObscurePassword.value =
                         !loginController.isObscurePassword.value;
@@ -121,7 +124,7 @@ class CustomTextPasswordField extends StatelessWidget {
                       ? AppColors.black
                       : AppColors.greyDisabled,
                 ),
-                fillColor: AppColors.greyDisabled,
+                fillColor: fillColor ?? AppColors.greyDisabled,
                 filled: true,
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.all(

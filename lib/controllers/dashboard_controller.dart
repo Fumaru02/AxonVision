@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:axon_vision/models/data_analisis_model.dart';
 import 'package:axon_vision/models/data_pasien_model.dart';
 import 'package:axon_vision/table_source/analisis_data_source.dart';
@@ -15,6 +17,7 @@ class DashboardController extends GetxController {
   final RxBool isSearching = RxBool(false);
   final int pageSize = 6;
   final RxInt _activeMenuIndex = 0.obs;
+  final RxInt changeTextMenu = RxInt(0);
   final Rx<DataPasienModel?> _selectedPasien = Rx<DataPasienModel?>(null);
 
   int get activeMenuIndex => _activeMenuIndex.value;
@@ -29,11 +32,11 @@ class DashboardController extends GetxController {
     originalPasienData = List.from(pasienData);
     pasienDataSource = PasienDataSource(
       dataPasien: pasienData,
-      onUploadTap: handledUploadTap,
+      onUploadTap: handledChangeScreenDynamic,
     );
   }
 
-  void handledUploadTap(DataPasienModel pasien) {
+  void handledChangeScreenDynamic(DataPasienModel pasien) {
     _selectedPasien.value = pasien;
     _activeMenuIndex.value = 2;
     update();
@@ -41,9 +44,7 @@ class DashboardController extends GetxController {
 
   void changeMenu(int index) {
     _activeMenuIndex.value = index;
-    if (index != 3) {
-      _selectedPasien.value = null;
-    }
+    log(index.toString());
     update();
   }
 
@@ -54,25 +55,8 @@ class DashboardController extends GetxController {
     update();
   }
 
-  void resetSearch() {
-    isSearching.value = false;
-    searchController.clear();
-    pasienData = List.from(originalPasienData);
-    pasienDataSource = PasienDataSource(
-      dataPasien: pasienData,
-      onUploadTap: handledUploadTap,
-    );
-    update();
-  }
-
   // Method untuk mencari pasien
   void searchPatients(String query) {
-    if (query.isEmpty) {
-      // Reset ke data asli jika query kosong
-      resetSearch();
-      return;
-    }
-
     isSearching.value = true;
 
     // Filter data berdasarkan nama atau ID
@@ -88,7 +72,7 @@ class DashboardController extends GetxController {
     pasienData = List.from(originalPasienData);
     pasienDataSource = PasienDataSource(
       dataPasien: pasienData,
-      onUploadTap: handledUploadTap,
+      onUploadTap: handledChangeScreenDynamic,
     );
     isSearching.value = false;
 
