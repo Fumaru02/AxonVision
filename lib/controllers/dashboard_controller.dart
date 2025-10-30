@@ -59,22 +59,25 @@ class DashboardController extends GetxController {
   void searchPatients(String query) {
     isSearching.value = true;
 
-    // Filter data berdasarkan nama atau ID
-    pasienData = originalPasienData.where((patient) {
-      final name = patient.namePatient.toLowerCase();
-      final id = patient.idPatient.toLowerCase();
-      final searchLower = query.toLowerCase();
+    if (query.isEmpty) {
+      // Jika query kosong, kembalikan ke data original
+      pasienData = List.from(originalPasienData);
+    } else {
+      // Filter data berdasarkan nama atau ID
+      pasienData = originalPasienData.where((patient) {
+        final name = patient.namePatient.toLowerCase();
+        final id = patient.idPatient.toLowerCase();
+        final searchLower = query.toLowerCase();
 
-      return name.contains(searchLower) || id.contains(searchLower);
-    }).toList();
+        return name.contains(searchLower) || id.contains(searchLower);
+      }).toList();
+    }
 
-    // Update data source
-    pasienData = List.from(originalPasienData);
+    // Update data source dengan data yang sudah difilter
     pasienDataSource = PasienDataSource(
       dataPasien: pasienData,
       onUploadTap: handledChangeScreenDynamic,
     );
-    isSearching.value = false;
 
     update(); // Trigger UI rebuild
   }

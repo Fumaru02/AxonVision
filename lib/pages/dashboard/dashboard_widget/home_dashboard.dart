@@ -21,7 +21,7 @@ class Home extends StatelessWidget {
         children: [
           PoppinsTextView(
             value: 'Selamat Datang, user!',
-            size: SizeConfig.safeBlockHorizontal * 2.3,
+            size: SizeConfig.safeBlockHorizontal * 2,
             fontWeight: FontWeight.bold,
           ),
           SpaceSizer(vertical: 2),
@@ -35,6 +35,7 @@ class Home extends StatelessWidget {
             ],
           ),
           SpaceSizer(vertical: 4),
+
           PoppinsTextView(
             value: 'Daftar Pasien Saya',
             size: SizeConfig.safeBlockHorizontal * 1.5,
@@ -42,10 +43,17 @@ class Home extends StatelessWidget {
           ),
           SizedBox(
             width: SizeConfig.blockSizeHorizontal * 70,
-            height: SizeConfig.safeBlockVertical * 33,
+            height: SizeConfig.safeBlockVertical * 34.5,
             child: SingleChildScrollView(
               physics: NeverScrollableScrollPhysics(),
-              child: DashboardTabelDataPasien(isHideID: true),
+              child: dashboardController.pasienData.isEmpty
+                  ? Center(
+                      child: PoppinsTextView(
+                        value: 'Data Tidak Ditemukan...',
+                        size: SizeConfig.safeBlockHorizontal * 1.8,
+                      ),
+                    )
+                  : DashboardTabelDataPasien(isHideID: true),
             ),
           ),
           SpaceSizer(vertical: 1),

@@ -80,13 +80,15 @@ class DashboardPage extends StatelessWidget {
                                 : dashboardController.activeMenuIndex == 5
                                 ? 'Pengaturan Profil'
                                 : 'Detail Pasien',
-                            size: SizeConfig.safeBlockHorizontal * 1.8,
+                            size: SizeConfig.safeBlockHorizontal * 1.6,
                             fontWeight: FontWeight.bold,
                           ),
                           SpaceSizer(
                             horizontal: dashboardController.activeMenuIndex == 0
-                                ? 46
-                                : 44,
+                                ? 49
+                                : dashboardController.activeMenuIndex == 5
+                                ? 44
+                                : 47,
                           ),
                           PoppinsTextView(
                             value: 'Halo, User',

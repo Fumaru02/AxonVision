@@ -154,7 +154,7 @@ class PengaturanProfil extends StatelessWidget {
             ),
           ),
           width: SizeConfig.safeBlockHorizontal * 70,
-          height: SizeConfig.safeBlockVertical * 25,
+          height: SizeConfig.safeBlockVertical * 26,
           child: Padding(
             padding: EdgeInsets.all(SizeConfig.horizontal(1)),
             child: Column(
@@ -226,7 +226,7 @@ class PengaturanProfil extends StatelessWidget {
             ),
           ),
         ),
-        SpaceSizer(vertical: 2),
+        SpaceSizer(vertical: 1),
         Row(
           children: [
             SpaceSizer(horizontal: 50),
