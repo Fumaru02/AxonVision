@@ -8,28 +8,28 @@ import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 
 class PasienDataSource extends DataGridSource {
   late List<DataGridRow> dataGridRows;
+  final List<DataPasienModel> dataPasien;
+  final Function(DataPasienModel) onUploadTap;
 
-  PasienDataSource(List<DataPasienModel> employe) {
-    dataGridRows = employe
+  PasienDataSource({required this.dataPasien, required this.onUploadTap}) {
+    dataGridRows = dataPasien
         .map<DataGridRow>(
-          (dataGridRows) => DataGridRow(
+          (pasien) => DataGridRow(
             cells: [
-              DataGridCell(
-                columnName: 'id_patient',
-                value: dataGridRows.idPatient,
-              ),
-              DataGridCell(columnName: 'nama', value: dataGridRows.namePatient),
+              DataGridCell(columnName: 'id_patient', value: pasien.idPatient),
+              DataGridCell(columnName: 'nama', value: pasien.namePatient),
               DataGridCell(
                 columnName: 'tanggal_lahir',
-                value: dataGridRows.tanggalLahir,
+                value: pasien.tanggalLahir,
               ),
-              DataGridCell(columnName: 'status', value: dataGridRows.status),
-              DataGridCell(columnName: 'action', value: dataGridRows.action),
+              DataGridCell(columnName: 'status', value: pasien.status),
+              DataGridCell(columnName: 'action', value: pasien),
             ],
           ),
         )
         .toList();
   }
+
   @override
   List<DataGridRow> get rows => dataGridRows;
 
@@ -48,7 +48,10 @@ class PasienDataSource extends DataGridSource {
               : Alignment.centerLeft,
           child: dataGridCell.columnName == 'action'
               ? CustomRippleButton(
-                  onTap: () {},
+                  onTap: () {
+                    final dataPasien = dataGridCell.value as DataPasienModel;
+                    onUploadTap(dataPasien);
+                  },
                   child: Icon(Icons.file_upload, color: AppColors.greyDisabled),
                 )
               : PoppinsTextView(

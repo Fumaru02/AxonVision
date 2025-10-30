@@ -1,7 +1,9 @@
 import 'package:axon_vision/controllers/dashboard_controller.dart';
-import 'package:axon_vision/pages/dashboard/dashboard_widget/dashboard_tabel_daftar_pasien.dart';
+import 'package:axon_vision/pages/dashboard/dashboard_widget/dashboard_tabel_data_pasien.dart';
 import 'package:axon_vision/pages/dashboard/dashboard_widget/home_dashboard.dart';
 import 'package:axon_vision/pages/dashboard/dashboard_widget/left_text_menu.dart';
+import 'package:axon_vision/pages/dashboard/dashboard_widget/data_pasien_menu_detail.dart';
+import 'package:axon_vision/pages/dashboard/dashboard_widget/upload_scan_mri.dart';
 import 'package:axon_vision/pages/global_widgets/custom/custom_flat_button.dart';
 import 'package:axon_vision/pages/global_widgets/custom/custom_text_field.dart';
 import 'package:axon_vision/pages/global_widgets/frame/frame_scaffold.dart';
@@ -19,8 +21,6 @@ class DashboardPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> dashboardMenu = [Home(), DaftarPasienMenu()]; //lanjut
-
     SizeConfig().init(context);
     return FrameScaffold(
       heightBar: 0,
@@ -53,7 +53,12 @@ class DashboardPage extends StatelessWidget {
                     ),
                     Padding(
                       padding: EdgeInsets.only(left: SizeConfig.horizontal(2)),
-                      child: LeftTextMenu(),
+                      child: LeftTextMenu(
+                        onMenuTap: (index) {
+                          dashboardController.changeMenu(index);
+                        },
+                        activeIndex: dashboardController.activeMenuIndex,
+                      ),
                     ),
                   ],
                 ),
@@ -65,11 +70,13 @@ class DashboardPage extends StatelessWidget {
                       Row(
                         children: [
                           PoppinsTextView(
-                            value: 'Dashboard',
+                            value: dashboardController.activeMenuIndex == 0
+                                ? 'Dashboard'
+                                : 'Detail Pasien',
                             size: SizeConfig.safeBlockHorizontal * 2,
                             fontWeight: FontWeight.bold,
                           ),
-                          SpaceSizer(horizontal: 44),
+                          SpaceSizer(horizontal: 46),
                           PoppinsTextView(
                             value: 'Halo, User',
                             size: SizeConfig.safeBlockHorizontal * 1.5,
@@ -92,7 +99,7 @@ class DashboardPage extends StatelessWidget {
                         ),
                       ),
                       SpaceSizer(vertical: 3),
-                      dashboardMenu[1],
+                      _buildActiveMenu(dashboardController),
                     ],
                   ),
                 ),
@@ -103,6 +110,33 @@ class DashboardPage extends StatelessWidget {
       ),
     );
   }
+
+  Widget _buildActiveMenu(DashboardController dashboardController) {
+    switch (dashboardController.activeMenuIndex) {
+      case 0:
+        return Home();
+      case 1:
+        return DaftarPasienMenu();
+      case 2:
+        return DataPasienMenuDetail(
+          dashboardController: dashboardController,
+          pasienData: dashboardController.selectedPasien!,
+          onBack: () {
+            dashboardController.backToPasienList();
+          },
+        );
+      case 3:
+        return UploadScanMri(
+          dashboardController: dashboardController,
+          pasienData: dashboardController.selectedPasien!,
+          onBack: () {
+            dashboardController.backToPasienList();
+          },
+        );
+      default:
+        return Home();
+    }
+  }
 }
 
 class DaftarPasienMenu extends StatelessWidget {
@@ -110,35 +144,50 @@ class DaftarPasienMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          children: [
-            CustomTextField(
-              width: 60,
-              title: '',
-              borderRadius: 1,
-              hintText: 'Cari berdasarkan nama atau ID...',
-            ),
-            SpaceSizer(horizontal: 2),
-            CustomFlatButton(
-              text: 'Cari',
-              onTap: () {},
-              radius: 1.4,
-              width: SizeConfig.blockSizeHorizontal * 8,
-              backgroundColor: AppColors.bgColor,
-            ),
-          ],
-        ),
-        SpaceSizer(vertical: 2),
-        SizedBox(
-          width: SizeConfig.blockSizeHorizontal * 70,
-          height: SizeConfig.safeBlockVertical * 70,
-          child: DashboardTabelDaftarPasien(isHideID: false),
-        ),
-      ],
+    return GetBuilder(
+      init: DashboardController(),
+      builder: (dashboardController) => Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              CustomTextField(
+                controller: dashboardController.searchController,
+                width: 60,
+                title: '',
+                borderRadius: 1,
+                hintText: 'Cari berdasarkan nama atau ID...',
+              ),
+              SpaceSizer(horizontal: 2),
+              CustomFlatButton(
+                text: 'Cari',
+                onTap: () {
+                  dashboardController.searchPatients(
+                    dashboardController.searchController.text,
+                  );
+                },
+                radius: 1.4,
+                width: SizeConfig.blockSizeHorizontal * 8,
+                backgroundColor: AppColors.bgColor,
+              ),
+            ],
+          ),
+          SpaceSizer(vertical: 2),
+          SizedBox(
+            width: SizeConfig.blockSizeHorizontal * 70,
+            height: SizeConfig.safeBlockVertical * 70,
+            child: dashboardController.pasienData.isEmpty
+                ? Center(
+                    child: PoppinsTextView(
+                      value: 'Data Tidak Ditemukan...',
+                      size: SizeConfig.safeBlockHorizontal * 1.8,
+                    ),
+                  )
+                : DashboardTabelDataPasien(isHideID: false),
+          ),
+        ],
+      ),
     );
   }
 }

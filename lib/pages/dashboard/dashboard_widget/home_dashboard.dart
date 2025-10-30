@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 import 'package:axon_vision/pages/dashboard/dashboard_widget/dashboard_tabel_analisis.dart';
-import 'package:axon_vision/pages/dashboard/dashboard_widget/dashboard_tabel_daftar_pasien.dart';
+import 'package:axon_vision/pages/dashboard/dashboard_widget/dashboard_tabel_data_pasien.dart';
 import 'package:axon_vision/pages/global_widgets/custom/custom_flat_button.dart';
 import 'package:axon_vision/pages/global_widgets/text_fonts/poppins_text_view.dart';
 import 'package:axon_vision/utils/app_colors.dart';
@@ -44,7 +44,7 @@ class Home extends StatelessWidget {
             height: SizeConfig.safeBlockVertical * 33,
             child: SingleChildScrollView(
               physics: NeverScrollableScrollPhysics(),
-              child: DashboardTabelDaftarPasien(isHideID: true),
+              child: DashboardTabelDataPasien(isHideID: true),
             ),
           ),
           SpaceSizer(vertical: 1),

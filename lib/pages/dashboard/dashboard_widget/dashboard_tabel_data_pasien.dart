@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 
-class DashboardTabelDaftarPasien extends StatelessWidget {
-  const DashboardTabelDaftarPasien({super.key, this.isHideID = true});
+class DashboardTabelDataPasien extends StatelessWidget {
+  const DashboardTabelDataPasien({super.key, this.isHideID = true});
   final bool? isHideID;
 
   @override
@@ -20,6 +20,7 @@ class DashboardTabelDaftarPasien extends StatelessWidget {
             gridLinesVisibility: GridLinesVisibility.both,
             headerGridLinesVisibility: GridLinesVisibility.both,
             source: dashboardController.pasienDataSource,
+
             verticalScrollPhysics: isHideID == true
                 ? NeverScrollableScrollPhysics()
                 : ScrollPhysics(),
