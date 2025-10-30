@@ -76,7 +76,11 @@ class DashboardPage extends StatelessWidget {
                             size: SizeConfig.safeBlockHorizontal * 2,
                             fontWeight: FontWeight.bold,
                           ),
-                          SpaceSizer(horizontal: 46),
+                          SpaceSizer(
+                            horizontal: dashboardController.activeMenuIndex == 0
+                                ? 46
+                                : 44,
+                          ),
                           PoppinsTextView(
                             value: 'Halo, User',
                             size: SizeConfig.safeBlockHorizontal * 1.5,

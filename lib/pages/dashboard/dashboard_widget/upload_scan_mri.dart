@@ -1,10 +1,8 @@
 import 'package:axon_vision/controllers/dashboard_controller.dart';
 import 'package:axon_vision/models/data_pasien_model.dart';
 import 'package:axon_vision/pages/global_widgets/custom/custom_flat_button.dart';
-import 'package:axon_vision/pages/global_widgets/custom/custom_ripple_button.dart';
 import 'package:axon_vision/pages/global_widgets/text_fonts/poppins_text_view.dart';
 import 'package:axon_vision/utils/app_colors.dart';
-import 'package:axon_vision/utils/asset_list.dart';
 import 'package:axon_vision/utils/size_config.dart';
 import 'package:axon_vision/utils/space_sizer.dart';
 import 'package:flutter/material.dart';
