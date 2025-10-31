@@ -1,9 +1,11 @@
 import 'package:axon_vision/controllers/login_controller.dart';
+import 'package:axon_vision/pages/dashboard/dashboard_page.dart';
 import 'package:axon_vision/pages/global_widgets/custom/custom_flat_button.dart';
 import 'package:axon_vision/pages/global_widgets/custom/custom_text_field.dart';
 import 'package:axon_vision/pages/global_widgets/custom/custom_text_password_field.dart';
 import 'package:axon_vision/pages/global_widgets/frame/frame_scaffold.dart';
 import 'package:axon_vision/pages/global_widgets/text_fonts/poppins_text_view.dart';
+import 'package:axon_vision/routes/app_route.dart';
 import 'package:axon_vision/utils/app_colors.dart';
 import 'package:axon_vision/utils/asset_list.dart';
 import 'package:axon_vision/utils/size_config.dart';
@@ -84,9 +86,11 @@ class LoginPage extends StatelessWidget {
                 ),
                 SpaceSizer(vertical: 3),
                 CustomFlatButton(
-                  width: 12,
+                  width: SizeConfig.safeBlockHorizontal * 16,
                   text: 'Login',
-                  onTap: () {},
+                  onTap: () {
+                    router.replaceNamed('dashboard');
+                  },
                   backgroundColor: AppColors.blueDark,
                 ),
               ],
